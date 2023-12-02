@@ -1,0 +1,57 @@
+mkfsModul 4
+Kegiatan 1
+Step
+1. sudo fdisk /dev/sda
+
+Didalam fdisk comman :  n untuk membuat partisi baru
+				  w untuk menyimpan partisi
+				  d untuk menghapus partisi
+				  p untuk print table partisi
+				  q untuk keluar tanpa menyimpan
+
+2. press n dan press w (berurutan)
+3. sudo reboot				  
+4. Cek partisi sudah terbentuk
+	a. sudo fdisk /dev/sda
+	b. press p then press q for exit
+5. sudo mkfs.ext4 /dev/sda3
+5. sudo blkid /dev/sda3 || lsblk -fp
+6. mkdir /mnt/newspace
+7. mount /dev/sda3 /mnt/newspace; NOTED UUID DIGANTI KE UUID YANG DIDAPAT DI SISTEM
+8. mount || df -h
+9. mkdir /mnt/newspace/newdir
+10. touch /mnt/newspace/newdir/newfile.txt
+10. sudo umount /mnt/newspace
+
+kegiatan 2
+Step
+1. parted /dev/sda3 mklabel msdos
+2. sudo parted /dev/sda3 
+	(parted) mkpart
+	(parted) sudoprimary
+	(parted) 2048s
+	(parted) 100mb (sesuai besar fdisk yang ada di sistem)
+3. parted /dev/sda3 print
+4. udevadm settle
+5. sudo mkfs.xfs -f /dev/sda3
+6. mkdir /archive
+7. mount /dev/sda3 /archive
+6. step
+	su-
+	echo '/dev/sda3 /archive xfs defaults O O' >> /etc/fstab
+7. lsblk -o  NAME,UUID,MOUNTPOINT
+8. mount | grep /dev/sda3
+noted : lanjut kg 3 jangan lupa umount archivenya dlo
+
+kegiatan 3 
+noted : sebaiknya jangan gegabah - adam warlock
+2. sudo parted /dev/sda; noted : endnya diisi 100% biar sistem yang nentuin sizenya
+3. (parted) print
+4. sudo udevadm setlle
+5. sudo mkswap /dev/sda3
+6. sudo swapon /dev/sda3
+7. sudo swapon --show
+8. sudo swapoff /dev/sda3
+9. sudo swapon --s
+10. sudo adevadm settle
+11. sudo reboot 

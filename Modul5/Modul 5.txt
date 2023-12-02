@@ -1,0 +1,46 @@
+Modul 5 SO
+noted : sebaiknya jangan gegabah
+keg 1
+step
+2. systemctl list-unit-files --type=service
+3. systemctl list-sockets
+4. systemctl status chronyd
+4.1 cek main pid pada status
+4.2 ps -p PID; noted pid diambil dari main pid no 4.1
+5. systemctl is-enabled sshd
+5.1 systemctl is-active sshd
+5.2 systemctl status sshd
+6. command no 2
+
+keg2
+step
+2. systemctl status sshd then catat no pid
+2.1 systemctl restart sshd
+2.2 systemctl status ssdh for checking pid berubah apa ngga
+2.3 systemctl reload sshd 
+2.4 systemctl status ssdh
+3. systemctl status chronyd
+4. systemctl stop chronyd
+4.1 systemctl status chronyd
+5. systemctl enable chronyd
+6. reboot
+7. systemctl disable chronyd
+
+keg3 fix
+step
+1. systemctl get-defult
+1.1 systemctl list-dependencies graphical.target | grep target
+2. systemctl isolate multi-user.target
+3.  ctrl+alt+f1
+4. systemctl set-default multi-user.target
+4.1 reboot
+4.2 su -
+4.3 systemctl isolate graphical.target
+4.4 reboot
+4.5 press E pada saat ada opsi 3 linux sebelum booting normal
+4.6 sebelahnya utf=8 itu dikasih systemd.unit=rescue.target
+4.7 ctrl + x for saving dan lanjut booting
+5. sebelum booting normal itu ada 3 pilihan linux, pilih yang opsi ke 3 yang ada rescuenya
+6. mount | grep 'on/'
+6.1 mount | grep '/' for checking apakah semuanya sudah dalam mode read/write
+6.2 ctrl + d buat lanjut booting dan saving perubahan, nanti bakal menuju ke multi-user bukan graphical.

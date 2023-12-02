@@ -1,0 +1,64 @@
+{rmkg 1
+Step
+1.	- ls : ngecek direktori yang sudah ada pada sistem
+	- mkdir Musik Foto Videos
+	- ls
+
+2.	- touch lagu{1..5}.mp3 rekaman{1..5}.avi gambar{1..5}.jpg
+	- ls : untuk mengecek subdirektori dan file kosong yang sudah ditambahkan
+
+3.	- mv lagu*.mp3 Musik/
+	- mv gambar*.jpg foto/
+	- mv rekaman*.avi videos/
+
+4.	- mkdir keluarga teman kerja
+
+5.	- mv Musik ~/keluarga/
+	- mv Foto ~/teman/
+	- mv Video ~/kerja/
+
+6.	- (ls -lR ~/) || (ls -R ): untuk mengecek semua direktori dan isinya
+
+kg 2
+step
+1. 	- mkdir /home/student/files/
+	- mkdir /home/student/backups/
+	- cd files
+	- touch source.file
+	- cd backups
+	- touch source.backup
+	- ln /home/student/files/source.file /home/student/backups/source.bakcup : membuat hardlink
+	- ls -li /home/student/files/source.file /home/student/backups/source.backup : untuk mengecek hardlink yang sudah dibuat
+
+2.  	- su -
+	- ln -s /tmp /home/student/tempdir
+	- ls -l /home/student/tempdir : menampilkan soflink yang sdh dibuat
+
+3. Jelasin
+4. Exit
+
+kg 3
+step
+1. su -
+2. mkdir /home/modul2
+3. sudo chgrp student /home/modul2
+4. ls -ld /home/modul2
+5. chmod g+w /home/modul2
+6. chmod 770 /home/modul2
+7. touch /home/modul2/modul2.txt
+8. ls -l /home/modul2/modul2.txt
+9. chown student:student /home/modul2/modul2.txt
+
+kg4
+step; NOTED : BELOM DICOBA
+1. su operator1
+2. umask
+3. - mkdir /tmp/shared
+   - ls -ld /tmp/shared
+4. touch /tmp/shared/default
+5. ls -l /tmp/shared
+6. sudo chgrp operator /tmp/shared || sudo chmod -R g+s /tmp/shared
+7. echo "umask 007" >> ~/.bashrc
+8. exit
+9. - su operator1
+   - umask

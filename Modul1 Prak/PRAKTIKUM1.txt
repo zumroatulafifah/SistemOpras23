@@ -1,0 +1,205 @@
+KEG 1
+
+2) 
+current user 			: whoami
+group 				: groups
+current working directory 	: pwd 
+home directory 			: echo $HOME
+executable			: echo $PATH
+
+3) 
+non login shell		: su  ( masuk root  tapi login ke akun user)
+trs masukin kek langkah 2
+
+sudo su = perintah mengizinkan untuk non login shell ke superuser
+sudo su - = perintah mengizinkan untuk login shell ke superuser
+
+su =  perintah beralih akun
+su - = perintah beralih akun
+
+sudo su - (tidak pakek passwd) sama dengan sudo -i
+sudo su (pakek passwd) 
+
+su dan su - tetep sama2 pake passwd
+
+shell non login = shell yang dijalankan setelah pengguna memulai shell tanpa login terlebih dahulu
+
+4)
+login shell			: su - (masuk root tapi seolah2 login akun baru)
+trs masukin kek langkah 2
+
+
+login shell =  shell yang dijalankan setelah penguna berhasil login ke dalam sistem operasi. 
+
+5)
+buat akun user dulu
+adduser operator1
+passwd operator1
+
+ganti pw jadi redhat
+
+konfigurasi untuk menjalankan commad apapun seperti user sudo
+
+nano /etc/sudoers
+abis itu tambahin operator1 ALL=(ALL) ALL
+trs ctrl x abis itu Y
+
+setelah itu exit 
+
+6)
+login ke operator1
+su - operator1
+sudo cat /var/log/messages (untuk membuka konten)
+sudo cp /etc/motd /etc/motdOLD (untuk mengcopy)
+cd /etc -ls
+ls
+sudo rm /etc/motdOLD (untuk menghapus) 
+
+--> cara cek kehapus/tidak gunakan command cd /etc trs enter trs ls (L kecil)
+
+
+KEG 2
+
+2)
+bisa menggunakan command
+sudo -i
+su - 
+
+3) 
+langkah 3 ini gaperlu karena di KEG 1 operator1 sudah dibuat, untuk cek nya bisa menggunakan command id operator1
+
+4)
+skip karena udah ada di KEG1
+
+5) 
+buat user tambahan
+
+adduser operator2
+passwd operator2
+
+ganti pw jadi redhat
+
+adduser operator3
+passwd operator3
+
+ganti pw jadi redhat
+
+6)
+update akun user 
+
+usermod -c 'operator one' operator1
+usermod -c 'operator two' operator2
+
+untuk cek nya pakai command
+
+grep operator /etc/passwd --> ini nanti bakal muncul merah
+
+7)
+hapus user operator3
+
+userdel -r operator3 (ini se file directory)
+
+untuk cek bisa pakai command
+
+cat /etc/group
+
+KEG 3
+
+2)
+su - 
+
+--sama aja 
+
+3) 
+membuat supelementary group 
+
+groupadd -g 30000 operators
+
+-g = melihat primary grup akun user
+
+4)
+membuat supplementari grup tambahan
+
+groupadd admin
+
+5) memeriksa kedua supplementary group
+
+cat /etc/group
+
+6)
+ini cek cat /etc/group untuk mengetahui operator mana saja yang sudah aktif jika belum ada maka adduser
+
+lalu gabungkan ke group operators
+usermod -aG operators operator1
+usermod -aG operators operator2
+usermod -aG operators operator3
+
+lalu cek cat /etc/group
+
+7)
+lalu add user sysadmin 1-3
+lalu tambahkan ke group admin
+
+lalu aktifkan hak administrative dg command
+
+nano /etc/sudoers
+%admin ALL=(ALL) ALL
+
+KEG 4 
+
+2)
+eksplorasi akun user yang ter-lock
+passwd -S student
+
+-S digunakan untuk melihat user dalam keadaan PS (ke lock) atau P(unlock)
+
+3)
+mengubah aturan pw akun operator1 agar memperbaruhi pw setiap 90 hari
+
+chage -m 0 -M 90 operator1
+
+4) 
+paksakan perubahan password pada login pertama 
+sudo passwd operator1 atau passwd -e operator1
+
+lalu masukkan pw forsooth123
+
+5) 
+set akun kadaluawarsa 180 hari
+chage -E $(date -d"180 days" +%Y-%m-%d) operator1
+v
+chage -M 180 operator1 
+
+
+cek sudah dirubah / tidak 
+chage -l operator1 --> l kecil
+
+6)
+set password agar kadaluarsa selama 180 hari dari tanggal hari ini untuk semua user 
+
+chage -M 180 operator1 
+
+cek nya pakek 
+chage -l operator1 
+
+-M = ini untuk memberikan batasan max harinya
+
+#langkah 6 ini semua user diatur waktunya satu2
+kaya misal ada operator1-3
+sysadmin1-3
+
+
+SHELL = interface antara user dengan SO
+SUDO = untuk memberikan hak akses superuser/root kepada pengguna biasa, sehingga mereka dapat menjalankan perintah yang memerlukan hak akses tersbut / kaya perintah
+
+= perintah untuk menjalankan perintah sebagai superuser/root
+
+-c = ini untuk membuat nama aslinya
+-g = untuk menentukan GID tertentu yang digunakan oleh group
+-aG = menambah user ke supelementary group
+-r = mengahpus file beserta directory
+
+su = perintah untuk beralih ke akun pengguna lain/akun superuser
+
+/etc/passwd = untuk menampung informasi mengenai local users
+/etc/group = untuk menampug informasi local grup

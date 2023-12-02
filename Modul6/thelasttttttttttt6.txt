@@ -1,0 +1,123 @@
+- rsyslog = sistem logging yg digunakan untuk mengumpulkan, mengelola, dan menganalisis pesan log dari berbagai sumber di sistem operasi.
+- syslog = sistem logging yang digunakan untuk merekam, mengumpulkan, dan mengirim pesan log dari berbagai perangkat dan aplikasi. 
+
+sistem log = kayak cctv, kayak apa yang terjadi pada komputer kita itu di awasi/ selalu diamati oleh sistem log ini.
+- kalo misal ada yang salah, data lock ini yang akan di cek
+
+- pemantauan, monitoring, problem solving, dan menjaga keamanan sistem
+
+- bedanya rsyslog dan syslog, kalo rsyslog itu dia lebih modern, lebih fleksibel, dan lebih canggih dari sistem logging syslog. kalo syslog dapat memadai untuk kebutuhan logging yang sederhana dan dasar.
+
+- Debug adalah proses identifikasi dan penyelesaian masalah atau kesalahan dalam program komputer atau sistem.
+
+
+keg 1
+1.
+masuk sbg root
+
+2.
+nano /etc/rsyslog.d/debug.conf 
+-membuka file konfigurasi dapat mengedit konfigurasi yang terkait dg tingkat log debug
+- untuk mengatur pengaturan log secara spesifik
+
+-> trs tulis text
+
+*.debug /var/log/messages-debug
+
+- *.debug menangkap semua pesan log dengan tingkat debug dari semua fasilitas.
+
+3.
+systemctl restart rsyslog
+
+-> kalo mau liat status bisa pake systemctl status rsyslog
+
+4.
+tail -f /var/log/messages-debug
+- ini itu kaya bakal menampilkan bagian terakhir dari suatu file
+- -f -> follow 
+
+5. 
+logger -p user.debug "halo afifah" <- ini terserah user
+
+- logger = perintah untuk menuliskan pesan log
+-p = untuk menentukan tingkat log, nah disini log nya itu debug
+
+6.
+tail -f /var/log/messages-debug
+
+
+Keg 2
+
+- log events = catatan yg dibuat oleh sistem untuk mencatat aktivitas, peristiwa, atau kejadian yg terjadi
+- penting u pemantauan, analisis, pemecahan masalah, untuk melacak kejadian, mengidentifikasi masalah, memahami prilaku sistem.
+- menganalisis log events dapat membantu pemantauan sistem, pemecahan masalah, meningkatkan performa, dan menjaga keamanan sistem.
+- journald, sebuah sistem logging yang dirancang untuk mengumpulkan, menyimpan, dan memproses log dari berbagai sumber
+- systemctl ini interface untuk menghubungkan ke systemd
+
+
+2. cek PID 
+- systemctl status sshd | grep PID 
+
+
+3.
+journalctl _PID= "masukin PID yg udah dicek"
+
+-> knp 81, karena ketika dicoba 80-85 yg bisa memnunculkan log event hanya yg 81, yg lainnya not service.
+- ini itu buat melihat log events yg sdg running, nah yg bisa itu 81
+
+4. 
+journalctl -p warning
+
+5.
+journalctl --since "20 minutes ago"
+
+6. 
+journalctl --since "09:00" -u sshd
+
+7.
+conf (configuration file) = file ini berisi pengaturan dan konfigurasi yang digunakan oleh suatu program/sistem.  Biasanya, file konfigurasi berisi pengaturan yang dapat diubah oleh pengguna untuk menyesuaikan perilaku program atau sistem sesuai dengan kebutuhan mereka.
+- nginx.conf digunakan untuk mengkonfigurasi server web Nginx.
+
+systemd = bertanggung jawab untuk memulai, menghentikan, dan mengelola proses di sistem. 
+
+- mem(memory) = menyimpan program yg sedang berjalan
+- PID (proses ID) = untuk mengidentifikasi secara unik pada proses tertentu. nomor khusus yang diberikan pada setiap program yang berjalan. Seperti nama panggilan unik untuk program tersebut.
+
+- cron = Ini adalah asisten yang membantu kita menjadwalkan tugas-tugas di komputer kita. Dia akan mengingatkan kita kapan harus menjalankan tugas-tugas tersebut.
+
+- tail = digunakan untuk agar kita dapat terus memantau perubahan pada file yang sedang ditampilkan, sehingga pengguna dapat melihat update terbaru. / menampilkan sebagian terakhir dari sebuah file teks.
+
+
+Keg 3
+
+journalctl: Ini adalah perintah pada sistem Linux yang digunakan untuk mengakses dan membaca log jurnal systemd.
+
+1.
+ls /var/log/journal 
+
+-> kalo gaada lanjut
+-> kalo ada hapus duls, pake rm -rf /var/log/journal
+
+2.
+systemctl restart systemd-journald
+
+3. 
+journalctl -D /var/log/journal
+
+-> KARENA DI SISTEMNYA ITU BY DEFAULT GAPUNYA AKSES UNTUK BUKA DIREKTORI JOURNAL
+-> MAKANYA MASUKIN COMMAND 3a dulu BARU NANTI BALIK LAGI KE COMMAND NO 3 PESANNYA  ITU BISA MUNCUL
+
+a. nano /etc/systemd/journald.conf
+
+-> scroll kebawah mentok, trs config Storage=persistent
+-> trs simpen seperti biasa
+-> persistant = jika directory blm ada maka layanan systemd-journal akan membuatnya.
+-Keuntungan dari jurnal sistem yang persisten adalah data historisnya tersedia segera saat boot. 
+
+b. systemctl restart systemd-journald
+
+-> abis itu cek pake journalctl -D /var/log/journal
+
+6. kenapa harus sistem ini
+
+

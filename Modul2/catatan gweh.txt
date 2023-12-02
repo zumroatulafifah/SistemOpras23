@@ -1,0 +1,163 @@
+modul 2 keg 1
+
+keg 1
+1.
+sudo mkdir /home/student/Foto
+sudo mkdir /home/student/Musik
+sudo mkdir /home/student/Videos
+
+/untuk menghapus directory rm -r nama_directory
+/kalo di root gausah pake sudo
+
+2.
+sudo touch lagu{1..5}.mp3 gambar{1..5}.jpg rekaman{1..5}.avi
+
+3. 
+sudo mv lagu*.mp3 musik/
+sudo mv gambar*.jpg foto/
+sudo mv rekaman*.avi videos/
+
+//cek nya pake ls
+//cek per folder ls /home/student/nama folder yg mau dilihat isinya
+
+4.
+sudo mkdir /home/student/keluarga
+sudo mkdir /home/student/teman
+sudo mkdir /home/student/kerja
+
+5. 
+sudo mv Musik ~/keluarga/
+sudo mv Foto ~/teman/
+sudo mv Videos ~/kerja/
+
+6.
+(ls -R ): untuk mengecek semua direktori dan isinya
+
+Keg 2
+1.
+cd /home //gaperlu gpp
+cd student
+
+mkdir files
+touch source.file
+ln source.file ~/files/source.file
+
+mkdir backups
+touch source.backup
+ln source.backup ~/backups/source.backup
+
+- cek nya pake ls -lR (ini lengkap)
+- rw-rw-r-- = hardlink
+- 2 = menunjukkan jumlah hardlink
+- student student = nama user dan grup pemilik file
+- march 28 = tanggal terakhir kali di modifikasi
+- ~/ = untuk membuka directory
+- ln = untuk membuat link
+- ls = untuk menampilak file dan directory
+
+2.
+ln -s /tmp /home/student/tempdir
+
+3. 
+ls -l /home/student/tempdir 
+
+bisa juga ls-l
+
+keg 3
+1.
+su - 
+
+2.
+mkdir /home/modul2
+
+3.
+sudo chgrp student /home/modul2
+
+- chgrp = change group -> mengubah grup pemilik file 
+
+4. 
+ls -ld /home/modul2
+
+/ls -ld untuk menampilkan informasi mengenai diretori terutama pemilik group apakah sudah terganti atau belum
+
+
+5. 
+chmod g+w /home/modul2
+
+- chmod = untuk mengubah / memodifikasi hak akses / kepemilikan
+- g+w = g untuk grup pemilik file, + untuk menambahkan hak akses, w untuk write
+
+6.
+chmod 770 /home/modul2
+
+7 = owner memiliki hak read, write, execute
+7 = group memiliki hak -------II-------------
+0 = bahwa pengguna lain tidak memiliki hak akses apapun pada directory
+
+7.
+touch /home/modul2/modul2.txt
+
+8. 
+ls -l /home/modul2
+
+-l = untuk megecek isi file 
+
+9.
+chown student:student /home/modul2/modul2.txt
+
+- chown = untuk mengubah pemilik dan grup dari sebuah file
+
+keg 4
+1.
+su operator1
+
+2.
+umask
+
+- 0002 = pengguna group gapunya akses nulis, tapi untuk baca dan eksekusi diberi nilai 1
+
+-> pemilik dan group memiliki akses penuh
+
+3. 
+mkdir /tmp/shared
+
+melihat daftar izin
+
+ls -ld /tmp/shared
+
+4.
+touch /tmp/shared/default
+
+5.
+ls -l /tmp/shared
+
+6.
+sudo chmod -R g+s /tmp/shared
+
+mengatur GID pada suatu direc beserta sub direc
+-R ini rekursif biar GID berubah keseluruh an
+
+7.
+echo "umask 007" >> ~/.bashrc
+
+menambahkan baris baru >> (redirect)
+~/.bashrc : file konfigurasi untuk shell bask pada sistem linux/ untuk menyimpan variabel dan pengaturan spesifik pengguna
+
+007 : hak akses kepada pemilik file r,w,e sedangkan hak akses untuk grup dan pengguna hanya r
+
+8.
+exit
+
+9.
+su - operator1
+
+
+tambahan :
+"drwxrwxr-x." menunjukkan tipe file/direktori dan hak aksesnya. "d" menunjukkan bahwa ini adalah sebuah direktori, sementara "rwxrwxr-x" menunjukkan hak akses untuk pemilik, grup, dan pengguna lain secara berturut-turut. "rwx" berarti hak untuk membaca, menulis, dan menjalankan file/direktori, sedangkan "-" menunjukkan bahwa hak tersebut tidak dimiliki. Tanda "." pada akhir baris menunjukkan bahwa ada file tersembunyi dalam direktori tersebut.
+"2" menunjukkan jumlah file/direktori yang terdapat dalam direktori tersebut.
+"student" menunjukkan pemilik file/direktori.
+"student" menunjukkan grup pemilik file/direktori.
+"91" menunjukkan ukuran file/direktori dalam blok disk (biasanya ukuran blok disk adalah 4KB).
+"mar 30 10:14" menunjukkan tanggal dan waktu terakhir kali file/direktori diubah.
+"musik" adalah nama file/direktori yang sedang ditampilkan.
+

@@ -1,0 +1,104 @@
+	+====================+
+	|     KEGIATAN 1     |
+	+====================+
+1. login sebagai student dan buka 2 terminal (split jadi 2)
+
+2.
+- mkdir bin
+- sudo nano bin/killing
+- isinya memang kosong -> buka modul dan tulis ss-annya (#!/bin/bash...)
+  sampai akhir. kalo udh, pencet:
+  ctrl+o > enter (menulis hasil konfig ke file), lalu ctrl+x (save)
+- sudo chmod +x bin/killing
+
+3. 
+- cd bin/
+- sudo ./killing network &
+- sudo ./killing interface &
+- sudo ./killing connection &
+
+4. tail -f /home/student/killing_outfile
+
+5. jobs -l
+
+6. 
+- sudo kill -SIGSTOP [network_pid]
+- jobs -l
+- tail -f /home/student/killing_outfile -> pastikan tidak ada kata "network"
+
+7. 
+- sudo kill -SIGTERM [interface_pid]
+- jobs -l
+- tail -f /home/student/killing_outfile
+
+8.
+- sudo kill -SIGCONT [network_pid]
+- jobs -l
+- tail -f /home/student/killing_outfile
+
+9.
+- sudo kill -SIGTERM [network_pid]
+- sudo kill -SIGTERM [connection_pid]
+- jobs -l
+
+10.
+- ps -ef | grep tail
+- sudo kill -SIGTERM [tail_pid]
+
+
+	+====================+
+	|     KEGIATAN 2     |
+	+====================+
+1. login sebagai student dan buka 2 terminal (split jadi 2)
+
+2. 
+- cd bin/
+- sudo nano monitor
+- isi sesuai yang ada di modul. bila sudah, ctrl+o > enter, lalu ctrl+x
+- sudo chmod +x monitor
+
+3. (terminal kanan) 
+- top
+
+4. lscpu
+
+5. sudo ./monitor &
+
+6. (terminal kanan)
+- top
+
+8. sudo ./monitor &
+
+9. uptime
+
+10. sudo ./monitor &
+
+12, 13. sudo killall monitor
+
+14. jobs -l
+
+
+	+====================+
+	|     KEGIATAN 3     |
+	+====================+
+1. login sebagai student
+
+2. 
+- sudo yum list installed | grep tuned
+- systemctl is-enabled tuned
+- systemctl is-active tuned
+
+3. tuned-adm list
+
+4. 
+- tuned-adm profile powersave
+- tuned-adm active
+
+5. exit
+
+	+====================+
+	|     KEGIATAN 4     |
+	+====================+
+1. login sebagai student dan buka 2 terminal (split jadi 2)
+
+2. 

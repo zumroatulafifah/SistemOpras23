@@ -1,0 +1,17 @@
+sistem operasi 24 - 03 - 23 
+
+setiap file directory punya makna 
+
+bin = executable (x)
+boot = proses booting (ada sesuatu hal yg salah maka kita bisa di directory trs untuk mencari solusinya)
+etc = cronjob --> proses yg bisa kita atur / kita set kapan mau di eksekusi
+home =  
+
+sortup = 
+hadlink = konsepnya dia akan langsung menunjuk la mengambil data 
+
+hak akses pada suatu file 
+
+simbolik =
+who - pengguna operating system 
+

@@ -1,0 +1,58 @@
+KEGIATAN 1
+1. 
+2. 
+- whoami -> Tampilkan current user
+- groups -> Group information
+- pwd -> tampilkan current working directory
+- printenv 
+	- echo $HOME -> Juga tampilkan environment variables yang menunjukan home directory mirik user dan 
+	- echo $PATH -> tunjukan lokasi executable milik user
+3. su -> Switch ke root pada non-login shell dan explorasi shell environment yang baru ...[root@localhost student]
+4. su - -> Switch ke root pada login shell dan explorasi shell environment yang baru ... [root@localhost ~]
+(sebelumnya) -> adduser operator1
+5.masuk root, nano /etc/sudoers ->  Periksa bahwa user operator1 dikonfigurasi untuk menjalankan command apapun seperti user
+sudo.
+6. 
+- su - operator1 -> Menjadi operator1
+- sudo tail /var/log/messages -> buka content dari /var/log/message. 
+- sudo cp /etc/motd /etc/motdOLD -> Copy /etc/motd ke /etc/motdOLD
+- sudo rm /etc/motdOLD-> hapus (/etc/motdOLD). 
+
+	
+KEGIATAN 2
+1. Siapkan virtual machine yang menggunakan OS CentOS dan masuk sebagai student
+2. su - --> Switch ke root menggunakan sudo pada shell environment user.
+3. cat /etc/group -> pastikan bahwa user tersebut sudah terbuat di sistem.
+4. passwd operator1 -> Set password untuk operator1 dengan password redhat.
+5. Buat user tambahan bernama operator2 dan operator3. Set password mereka menjadi redhat.
+6. 
+- usermod -c "Operator One" operator1 -> Update akun user operator1 dan operator2 agar masing-masing memuat comment Operator 
+One dan Operator Two (operator1 = Operator One, operator2 = Operator Two). 
+- cat /etc/passwd -> Pastikan comment berhasil ditambahkan.
+7. userdel operator3 -> Hapus user operator3 beserta personal data user tersebut. Pastikan user berhasil dihapus sesuai 
+dengan ketentuan.
+
+KEGIATAN 3
+1. Siapkan virtual machine yang menggunakan OS CentOS dan masuk sebagai student
+2. Switch ke root menggunakan sudo, dengan mewariskan full environment user root.
+3. groupadd -g 30000 operators -> Buat supplementary group operators dengan GID 30000.
+4. groupadd admin -> Buat admin sebagai supplementary group tambahan.
+5. cat /etc/group -> Periksa kedua supplementary group tersebut, dan pastikan apakah sudah terbuat atau belum.
+6. usermod -aG operators operator1 -> Pastikan user operator1, operator2 dan operator3 tergabung dalam group operators.
+7. 
+- usermod -aG operators sysadmin1 -> Pastikan user sysadmin1, sysadmin2 dan sysadmin3 tergabung dalam group admin. Aktifkan hak administrative semua anggota group admin. 
+- su sysadmin1 -> Periksa semua member admin apakah dapat menjalankan administrative command atau tidak.
+
+
+KEGIATAN 4
+1. Siapkan virtual machine yang menggunakan OS CentOS dan masuk sebagai student
+2. sudo passwd -S username -> Eksplorasi akun user yang ter-lock dan unlock sebagai student.
+3. sudo chage -m 0 -M 90 -W 7 operator1 -> Ubah aturan password akun operator1 agar memperbarui password setiap 90 hari. Pastikan 
+umur password berhasil diatur.
+4. sudo passwd -e operator1 -> Paksakan perubahan password pada login pertama untuk akun operator1.
+5. passwd -> Login sebagai operator1 dan ubah password menjadi forsooth123. Setelah berhasil setting
+password, Kembali ke user shell student.
+6. sudo chage -M 180 operator1 -> Set akun operator1 agar memiliki kadaluarsa sejumlah 180 hari dari hari ini. Hint: date -d “+180
+days” memberikan kalian tanggal dan waktu dari tanggal dan waktu saat ini.
+7. sudo chage -M 180 operator2 -> Set password agar kadaluarsa 180 hari dari tanggal hari ini untuk semua user. Gunakan hak 
+administrative untuk edit file konfigurasi.

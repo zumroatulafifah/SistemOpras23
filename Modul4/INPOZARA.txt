@@ -1,0 +1,55 @@
+Kegiatan 1
+
+1. sudo fdisk /dev/sda (klik n dulu baru save change use "w")
+2. sudo reboot
+sudo mkfs.xfs /dev/sda3 (buat show uuid sda3)
+3. lsblk -fp
+4. sudo mkdir /mnt/newspace
+5. sudo mount UUID=<UUID> /mnt/newspace
+6. sudo mkdir /mnt/newspace/newdir
+7. sudo touch /mnt/newspace/newdir/newfile.txt
+8. sudo umount /mnt/newspace
+9. mount
+
+
+Kegiatan 2
+
+1. sudo parted /dev/sda3 mklabel msdos
+2. sudo parted /dev/sda3 
+	(parted) mkpart
+	(parted) primary
+	(parted) 2048s
+	(parted) 100mb (sesuai besar fdisk yang ada di sistem)
+3. parted /dev/sda3 print
+4. udevadm settle
+5. sudo mkfs.xfs -f /dev/sda3
+6. step
+	su-
+	echo '/dev/sda3 /archive xfs defaults O O' >> /etc/fstab
+7. lsblk -o  NAME,UUID,MOUNTPOINT
+8. systemctl daemon-reload
+
+
+Kegiatan 3
+
+1. sudo parted /dev/sda
+(parted) mkpart
+Partition name? []: myswap
+File system type? [ext2]? linux-swap
+Start? 2048s
+End? 100%
+(parted) q
+
+2. sudo parted /dev/sda
+(parted) print
+
+3.sudo parted /dev/sda
+(parted) settled
+
+5. sudo mkswap /dev/sda3
+6. sudo swapon /dev/sda3
+7. sudo swapon --show
+8. sudo swapoff /dev/sda3
+9. sudo swapon --show
+10. sudo adevadm settle
+11. sudo reboot

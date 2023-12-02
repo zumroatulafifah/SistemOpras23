@@ -1,0 +1,109 @@
+keg 1
+1. 
+masuk root seperti biasa
+
+2.
+systemctl list-units --type=service
+
+*gunanya untuk melihat service yang terdaftar di sistem dan  mengetahui status aktivasi mereka 
+*--type=service untuk membatasi tipe unit yg dijabarkan
+*static = itu diaktifkan tapi secara static, artinya gabisa diaktifkan/dinonaktifkan secara dinamis oleh pengguna, unit yang penting aja yg bisa.
+
+3.
+systemctl list-units --type=socket --all
+
+*sockets = komunikasi antar proses yg berjalan pada sistem, kaya transfer file dll
+
+- systemctl list-units --type=socket --all | grep active
+- systemctl list-units --type=socket --all | grep inactive
+
+4.
+- systemctl status chronyd
+
+*dia daemon(program yg berjalan di latar belakang), yg bertanggung jaawab untuk menjaga dan mengatur sinkronisasi waktu sistem dg menggunakan protokol NTP.
+*kalo running berarti sedang melakukan sinkronisasi
+*segala proses pas booting yg menentukan waktu sikronisasinya tiu menggunakan ini
+
+- ps -p PID -> cek PID di langkah 4
+
+5.
+- systemctl is-enabled sshd
+- systemctl is-active sshd
+- systemctl status sshd
+
+6.
+systemctl list-unit-files --type=service (pake ini aja)
+
+- systemctl list-unit-files --type=service | grep enabled
+- systemctl list-unit-files --type=service | grep disabled
+
+keg 2
+2.
+- systemctl status sshd -> catat PID
+- systemctl restart sshd
+- systemctl status sshd -> cek PID, dia berubah karena restart dimulai ulang
+- systemctl reload sshd -> PID gaberubah, karena dia kaya refresh aja
+- systemctl status sshd
+
+3. 
+systemctl status chronyd
+
+4.
+systemctl stop chronyd
+
+5.
+systemctl enable chronyd
+
+6.
+reboot
+
+7.
+systemctl status chronyd
+
+8. 
+reboot
+
+
+
+keg 3
+1.
+systemctl get-default
+
+*digunakan untuk mendapatkan target default yang saat ini diatur sebagai target default sistem (target yang digunakan saat sistem booting ke dalam multi0user / graphical).
+*graphical.target: Ini menunjukkan bahwa sistem akan booting ke dalam mode graphical, yang berarti lingkungan antarmuka grafis seperti X Window System atau desktop environment akan diaktifkan setelah sistem selesai booting.
+
+2.
+systemctl isolate multi-user.target
+
+*isolate = artinya beralih
+
+3.
+login root, masukin pw centos
+
+4.
+- systemctl set-default multi-user.target
+- reboot
+- login sbg root lagi
+- systemctl set-default graphical.target
+- systemctl get-default 
+
+5. rescue mode untuk recpver sistem
+-reboot, buat aksses boot leader
+- pencet e, sebelum booting selese
+- scroll sampe ada linux16, trs cari utf=8, trs ketik "systemd.unit=rescue.target", ini digunakan untuk -> mode khusus yang dirancang untuk memulihkan atau memperbaiki masalah serius pada sistem operasi Linux. 
+
+
+- ctrl + x
+- ctrl + d, buat lanjut booting
+
+- masuk student, trs cek
+mount | grep '/' -> cek mode read/write
+
+
+- rescue mode adalah = mode khusus pada sistem operasi yang dirancang untuk membantu memperbaiki masalah yang mungkin terjadi pada suatu sistem, biasanya digunakan dalam beberapa skenario seperti perbaikan sistem yg rusak karena kegagalan booting, pemulihan data yang hilang / rusak, pembaharusan / penghapusan software yang menyebablan masalah pada sistem, mengatur ulang / memperbaiki konfigurasi sistem yang salah
+
+- konsep penggunaan rescue mode dalam pemulihan sistem adalah untuk memberikan akses terbatas namun penting ke sistem operasi yang mengalami masalah / kegagalan sistem.
+
+- boot leader = memulai sistem operasi yang terpasang pada perangkat tersebut.
+- bootloader menampilkan menu pilihan saat booting yang memungkinkan pengguna untuk memilih sistem operasi yang akan dijalankan.
+

@@ -1,0 +1,53 @@
+envKegiatan 1
+a2. env
+3. su-
+4. su
+5. useradd operator1
+   passwd redhat
+6. sudo nano /etc/sudoers (jadi punya hak administratif)
+   operator 1 ALL=(ALL)		ALL
+   sudo tail /var/log/messages 
+   sudo cp /etc/motd /etc/motdOLD
+   cd /etc -ls
+   sudo rm /etc/motdOLD
+
+Kegiatan 2
+2. sudo -i
+3. adduser operator1
+   id
+4. passwd operator1
+   redhat
+5. adduser operator2
+   adduser operator3
+   passwd operator2
+   redhat
+   passwd operator3
+   redhat
+6. sudo usermod -c 'operator one' operator1
+   sudo usermod -c 'operator two' operator2
+   grep operator /etc/passwd (check)
+7. userdel operator3
+   rm -r operator3(ngapus semua)
+
+Kegiatan 3
+2. sudo group -g 30000 operators
+3. sudo group -g 1 admin
+4. sudo usermod -aG operators operator1
+   sudo usermod -aG operators operator2
+   sudo usermod -aG operators operator3
+5. sudo usermod -aG admin sysadmin1
+   sudo usermod -aG admin sysadmin2
+   sudo usermod -aG admin sysadmin3
+6. sudo nano /etc/sudoers
+   %admin ALL=(ALL)	ALL
+
+
+kegiatan 4
+2. sudo awk -F: ‘($2==“*”){print $1}’ /etc/shadow, step selanjutnya passwd -u username
+3. sudo chage -M 90 operator1
+4. sudo chage -l
+5. su operator1
+passwd
+6. sudo chage -E $(date -d "+180 days" +%Y-%m-%d) operator1
+7. sudo nano /etc/login.defs
+   

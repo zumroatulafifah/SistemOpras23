@@ -1,0 +1,69 @@
+tunning 
+
+bisa menggunakan killing = mematikan proses yg sedang berjalan pada cpu
+
+sigkill = pada saat itu masukan perintah langsung diberhetikan saat itu juga, ini opsi terakhir
+
+sigterm = disarankan dipake, 
+
+-> dia untuk mengecek 
+ps aux = menampilkan proses yg sedang berjalan 
+| = menandakan bahwa ada proses lain yang ingin kita masukkan, yaitu perintah disebalahnya
+
+grep job = menampilkan seluruh proses di in maupun back yang ada kategori job 
+
+kill 5194 = menghentikan eksekusi 
+
+kill bisa dilakukan dengan sinyal/ dg kode / nama sinyalnya
+
+kill <9 masukkan nama kode proses yg mau dihapus 
+
+killall masukkan apa yg ingin dihapus = bisa memberikan sinyal ke banyak proses dengan nama yg mengandung query tertentu
+
+pkill = menyediakan opsi untuk menghentikan banyak proses sekaligus milik user, dengan opsi yg lebih banyak
+
+-U = mengentikan semua proses milik user 
+
+pgrep = menyediakan opsi2 yg lebih banyak, gunanaya untuk memfilter 
+
+pstree = ingin melihat semua proses dalam bentuk tree (bentuk pohon)
+
+-p = menghentikan semua proses yg dimiliki anak 
+
+
+monitoring = mengamati suatu proses, kayak bagaimana cpu mengatur operaating system di computer
+
+uptime = menampilkan value yang mengandung load aberage
+
+load avergae = rata2 proses yg bisa dieksekusi oleh cpu dalam satu waktu, dan bergantung pada cpu di komputer, nilai paling baik nilainya adalah 4 (berarti ini memiliki cpu sebanyak 4)
+
+kalau misal 0, itu artinya tidak beres, banyak cpu yang tidak bekerja
+
+nilai yang baik mendekati 4, sekitar 80% 3,2 - 4 ini yg paling baik, kalo sudah mendekati 4 overload, kalo kurang berarti kurang dari 80%
+
+3 nilai dibelakang = menunjukkan nilai rata2 1 menit, 5 menit, 15 menit 1-15 ini bagus kalo naik, kalo turun itu tidak baik 
+
+lscpu = untuk menampilkan jumlah coor cpu 
+dan akan disuguhi tampilan yang lebih lengkap 
+
+memenatu proses yg sedang berjalan secara realtime dengan menggunakan perintah top
+
+diampingnya diberi perintah selanjutnya, mau mengeksekusi apa 
+
+adjusting tuning profiles = mode di dalam linux 
+
+balance
+
+performace = tampilan grafik
+
+batrei server = tampilan grafik bisa dikurangi, proses yg sedang berjalan itu dikurangi 
+
+yum install package 
+
+turned -adm list = menampilkan profil list 
+
+turnet -adm profile = ini untuk mengganti profile lalu jangan lupa aktifkan perintah active 
+
+setiap proses di linux ada level prioritas nya, jika makin kecil maka makin tinggi minimal -20 sampai +18
+
+ps = menampilkan 

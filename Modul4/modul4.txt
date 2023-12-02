@@ -1,0 +1,159 @@
+keg 1 -> ini harus masuk root dulu de
+
+sudo fdisk -l -> buat cek dulu
+
+1.
+sudo fdisk /dev/sda
+
+n trs p = buat partisi, pilih partisi number, defaultnya 3, isi start sama end nya, ini ikutin yg tertera
+p = buat nampilin table partisi, sama partisi number
+w = buat nyimpen partisi
+d = buat apus partisi
+
+2.
+sudo reboot
+
+cek paritisi yg udah kebentuk
+sudo fdisk /dev/sda
+login centos
+press p 
+press q
+
+3. 
+sudo mkfs.ext4 /dev/sda3 -> untuk memformat partisi jadi ext4 (Fourth Extended Filesystem) -> paling umum digunakan karena stabil, andal, dan cepat
+
+sudo lsblk -fp -> melihat UUID
+
+-lsblk = menampilkan informasi tentang struktur partisi pada disk
+-f = tipe sistem file pada setiap partisi
+-p = jalur lengkap setiap praktisi
+
+4.
+sudo mkdir /mnt/newspace
+
+5.
+sudo mount /dev/sda3 /mnt/newspace -> mount partisi baru ke direktori
+
+6. 
+sudo mkdir /mnt/newspace/newdir
+
+7.
+sudo touch /mnt/mewspace/newdir/newfile.txt
+
+8.
+sudo umounth /mnt/newspace
+
+9.
+mount -> cek
+
+keg 1 tidak perlu reboot
+
+Keg 2
+1.
+sudo parted /dev/sda3 mklabel msdos
+
+menyimpan tabel partisi
+
+yes
+
+ignore/cancel ? -> pilih i/ignore 
+
+2.
+sudo parted /dev/sda3
+(parted) mkpart -> masukin primary - xfs - 2048s - 100mb
+ignore/cancel = ignore/ i -> enter 
+(parted) q
+
+3.
+sudo parted /dev/sda3 print  
+
+4.
+sudo udevadm settle
+
+udev = pengenalan perangkat pada linux yang digunakan untuk mengatur dan mengenali perangkat keras pada sistem operasi
+
+5.
+sudo mkfs.xfs -f /dev/sda3
+
+-f = memformatnya dengan paksa tanpa meminta konfirmasi dari pengguna.
+
+xfs = kemampuan menangani file yang sangat besar, performa tinggi untuk menangani file yang banyak diakses secara bersamaan
+
+6.
+sudo mkdir /archive 
+
+sudo mount /dev/sda3 /archive
+
+abis itu cek pip pake mount
+
+7.
+lsblk -o NAME,UUID,MOUNTPOINT
+
+8.
+masuk ke root 
+echo '/dev/sda3 /archive xfs defaults O O' >> /etc/fstab
+
+"defaults": ini adalah opsi mount default untuk partisi tersebut. Ini mencakup opsi-opsi seperti "rw" (read-write), "suid" (set user ID), dan "dev" (allow device files).
+
+ Dalam hal ini, "O" mungkin merujuk pada opsi yang tidak dikenali oleh sistem atau mungkin merujuk pada opsi khusus yang ditentukan oleh sistem administrator.
+
+memudahkan akses data ke file tersebut
+
+cat /etc/fstab
+
+9.
+menjelaskan ke asisten
+
+10.
+mount | grep /dev/sda3
+
+11.
+umount /dev/sda3 /archive
+
+
+Keg 3
+2. 
+sudo parted /dev/sda
+
+3.
+(parted) p
+(parted) q
+primary
+linux-swap
+2048s
+100%
+
+4.
+sudo udevadm settle
+
+5.
+sudo mkswap /dev/sda3 -> membuat swap pada partisi /dev/sda3
+
+6.
+sudo swapon /dev/sda3 -> memulai penggunaan swap
+
+7.
+sudo swapon --show
+
+8.
+sudo swapoff /dev/sda3
+
+9.
+sudo swapon --show
+
+10.
+sudo udevadm settle
+
+11.
+sudo reboot 
+-> ini akan merubah jadi terminal 
+
+
+
+
+
+
+
+
+
+

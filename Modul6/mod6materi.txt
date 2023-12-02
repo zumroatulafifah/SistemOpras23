@@ -1,0 +1,38 @@
+sistem log = kayak cctv, kayak apa yang terjadi pada komputer kita itu di awasi/ selalu diamati oleh sistem log ini.
+- kalo misal ada yang salah, data lock ini yang akan di cek
+
+- pemantauan, monitoring, problem solving, dan menjaga keamanan sistem
+
+
+komponen utama : 
+jurnaldi dan ersislog
+
+jurnaldi = komponen yg bertanggung jawab untuk mengumpulkan dan menyimpan log sistem, sifat nya aktif, data yang sudah dikumpulan akan disimpan menggunakan log biner di penyimpanan lokal.
+- keuntungan = datanya akan kaya metadata -> informasi yg bisa disimpan oleh jurnaldi adalah info yang lengkap (presisi, kemampuan mengelompokkan log sistem), mendukung pencarian cepat, datang ke setiap komponen dan mengumpulkannya
+
+ersislog = lebih pasif, menunggu unit mengirim pesan kepada dirinya, ersislog dia ini merupakan deamon, berfungsi untuk menerima, mengelola, dan meneruskan istem log ke tujuan yang tepat, implementasi sistem log yg kompatible dengan syslog, directory var log, bentuknya file text/ text file
+
+pesan2 yg disimpan oleh ersislog ada disimpan di beberapa file yng berbeda, setiap file punya karakteristik tersediri. kecuali pesan2 yg terkait denggan file debugging, fasilitas keamanan
+
+pesan2 yg disimpan di file ada level2 nya/klasifikasi pesan berdasarkan level priorotasnya, dari 0-7, 0 = paling penting -> urgent -> berupa ancaman serius
+
+
+file rotation = kapan data di replace dengan data baru
+kalo tidak di replace maka akan menyebabkan storage cepat habis, karena di log bakal menumpuk
+- kita bisa menyetting berapa mb penyimpananya dan kapan 
+
+1. kapan waktu log direkam 
+2. ini host, tujuan pengirimannya
+3. nama proses/ pid number
+4. pesannya apa / isinya
+
+
+data log bisa di monitoring dengan tailf -f lalu arahkan ke file nya, -f akan membuat file dibaca terus2an, dan tail akan menampilkan 10 baris terakhir dari log
+
+
+jurnaldi = format file binary
+
+yg dicetak tebal adalah dengan prioritas notice dan warning, error keatas warna merah, info debug cetak biasa
+- tau siapa yg ngirim, tujuannya, sama pesannya. verbose untuk tampilan yg lebih rinci
+
+kekurangan = pesan log tidak disimpan secara permanen, disimpan di run log directory (ini bersifat volatile)

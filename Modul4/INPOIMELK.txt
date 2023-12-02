@@ -1,0 +1,109 @@
+>> sebelum menjalankan centOS nya, klik Settings
+>> pilih Storage - klik Controller: SATA - pencet Add hardisk
+>> klik Create - pilih VDI/VDH (sama aja) - Next
+>> lalu atur sizenya (minim 5-10GB buat jaga-jaga) - Finish
+>> pilih virtual hardisk yg telah dibuat tadi (Choose)
+>> lalu pencet OK untuk mengakhiri settingan.
+>> Start centOS nya, lalu masukkan perintah:
+- sudo parted /dev/sdb mklabel gpt
+- sudo udevadm settle
+- sudo systemctl daemon-reload
+- reboot
+
+	+=======================+
+	|	Kegiatan 1	|
+	+=======================+
+
+1.
+- sudo fdisk -l 
+- sudo fdisk /dev/sdb
+- ketik m (untuk melihat command yg tersedia)
+- ketik n untuk menambahkan partisi
+- pilih p untuk primary
+- untuk Partition Number, ikuti defaultnya. Misal defaultnya 3, maka ketik 3
+- First Sector : 2048, Last Sector: +1000MB
+- ketik w untuk save and exit
+
+2. reboot
+
+++). Tambahan, jalankan command berikut
++). sudo mkfs.xfs /dev/sdb1
+
+3. sudo lsblk -fp
+
+4. 
+- sudo mkdir /mnt/newspace
+- sudo mount /dev/sdb1 /mnt/newspace
+
+5. sudo lsblk
+
+6. sudo mkdir /mnt/newspace/newdir
+
+7. sudo touch /mnt/newspace/newdir/newfile.txt
+
+8. sudo umount /dev/sdb1
+
+9. (bila dibutuhkan) reboot
+
+	+=======================+
+	|	Kegiatan 2	|
+	+=======================+
+
+1.
+- sudo mkfs.msdos /dev/sdb1
+
+2. 
+- sudo parted /dev/sdb rm 1
+- sudo parted /dev/sdb mkpart primary xfs 2048s 1000MB
+
+3. sudo parted /dev/sdb print
+
+4. sudo udevadm settle
+
+5. sudo mkfs.xfs -f /dev/sdb1
+
+6.
+- sudo mkdir /archive
+- sudo mount /dev/sdb1 /archive/
+
+7. sudo lsblk -fp (copy UUID milik /dev/sdb1)
+
+8.
+- echo "UUID=PASTE_UUIDNYA /archive xfs defaults 0 0" | sudo tee -a /etc/fstab
+- sudo systemctl daemon-reload
+
+9. lihat modul hal 14-15
+
+10. cat /etc/fstab | grep /archive
+
+	+=======================+
+	|	Kegiatan 3	|
+	+=======================+
+2. 
+- sudo parted /dev/sdb 
+- mkpart 
+- myswap 
+- linux-swap 
+- 1001MB (biar gampang 1000MB)
+- 1513MB (1500MB)
+- quit
+- sudo udevadm settle
+
+3. sudo parted /dev/sdb print
+
+5. 
+- sudo mkswap /dev/sdb2
+- sudo lsblk -fp (copy UUID /dev/sdb2)
+
+4. 
+- sudo "UUID=PASTE_UUIDnya swap swap defaults 0 0" | sudo tee -a /etc/fstab
+- sudo systemctl daemon-reload
+
+6. sudo swapon /dev/sdb2
+
+7. sudo lsblk
+(bila sudah ON, MOUNTPOINT menunjukkan [SWAP] )
+
+8. sudo swapoff /dev/sdb2
+
+9. sudo lsblk (tulisan [SWAP] hilang)
